@@ -1,5 +1,4 @@
 import { tool } from "@langchain/core/tools";
-import { z } from "zod";
 
 import * as T from "./types.js";
 
@@ -41,13 +40,8 @@ const getFilterLogs = async (
   return result;
 };
 
-const argsSchema = z.object({
-  start: z.string().describe("Start time in ISO format"),
-  end: z.string().describe("End time in ISO format"),
-});
-
 export const FirewallTool = tool(
-  async (args: z.infer<typeof argsSchema>) => {
+  async (args: T.getFilterLogsIn) => {
     console.log(
       `=== Fetching firewall logs from ${args.start} to ${args.end} ===`,
     );
@@ -61,6 +55,6 @@ export const FirewallTool = tool(
   {
     name: "firewall_logs",
     description: "Return the firewall blocked logs in a specific time range.",
-    schema: argsSchema,
+    schema: T.getFilterLogsInSchema,
   },
 );
