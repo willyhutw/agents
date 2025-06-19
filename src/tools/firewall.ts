@@ -47,7 +47,6 @@ const getFilterLogs = async (
 const argsSchema = z.object({
   start: z.string().describe("Start time in ISO format"),
   end: z.string().describe("End time in ISO format"),
-  limit: z.number().optional().describe("Max results to return"),
 });
 
 export const FirewallTool = new DynamicStructuredTool({
