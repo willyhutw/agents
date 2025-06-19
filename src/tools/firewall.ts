@@ -1,6 +1,7 @@
 import { tool } from "@langchain/core/tools";
 
 import * as T from "./types.js";
+import * as M from "./mocks.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -46,8 +47,12 @@ export const FirewallTool = tool(
       `=== Fetching firewall logs from ${args.start} to ${args.end} ===`,
     );
     try {
-      const result = await getFilterLogs(args);
-      return JSON.stringify(result);
+      // ### uncomment the following line to fetch real data from Loki
+      // const result = await getFilterLogs(args);
+      // return JSON.stringify(result);
+
+      // ### use mock data for testing purposes
+      return JSON.stringify(M.mockFilterLogs);
     } catch (error) {
       return `Error fetching logs: ${error}`;
     }
