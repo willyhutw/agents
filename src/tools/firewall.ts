@@ -24,10 +24,10 @@ const getFilterLogs = async (
   const blockedRecords: T.blockedRecord[] = rawData.data.result.map((r) => {
     return {
       protocol: r.stream.protocol_text,
-      ipVersion: r.stream.ip_version,
+      ipVersion: parseInt(r.stream.ip_version, 10),
       srcAddress: r.stream.source_address,
       srcCountry: r.stream.source_country,
-      destinationPort: r.stream.destination_port,
+      destinationPort: parseInt(r.stream.destination_port, 10),
       tcpFlags: r.stream.tcp_flags || "",
     };
   });

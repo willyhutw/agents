@@ -17,10 +17,10 @@ export type lokiQueryOut = {
 
 export type blockedRecord = {
   protocol: string;
-  ipVersion: string;
+  ipVersion: number;
   srcAddress: string;
   srcCountry: string;
-  destinationPort: string;
+  destinationPort: number;
   tcpFlags?: string;
 };
 
