@@ -21,15 +21,13 @@ export type getFilterLogsIn = z.infer<typeof getFilterLogsInSchema>;
 export const blockedRecordSchema = z.object({
   srcAddress: z.string().describe("Source IP address"),
   srcCountry: z.string().describe("Source country code"),
-  destinationPort: z.number().describe("Destination port number"),
+  dstPort: z.number().describe("Destination port number"),
 });
 export type blockedRecord = z.infer<typeof blockedRecordSchema>;
 
 export const getFilterLogsOutSchema = z.object({
   timeRange: z.record(z.string()).describe("Time range of the logs"),
-  blockedRecords: z
-    .array(blockedRecordSchema)
-    .describe("List of blocked records"),
-  totalBlocked: z.number().describe("Total number of blocked records"),
+  records: z.array(blockedRecordSchema).describe("List of blocked records"),
+  total: z.number().describe("Total number of blocked records"),
 });
 export type getFilterLogsOut = z.infer<typeof getFilterLogsOutSchema>;

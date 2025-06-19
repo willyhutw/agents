@@ -20,11 +20,11 @@ const getFilterLogs = async (
 
   const rawData: T.lokiQueryOut = await resp.json();
 
-  const blockedRecords: T.blockedRecord[] = rawData.data.result.map((r) => {
+  const records: T.blockedRecord[] = rawData.data.result.map((r) => {
     return {
       srcAddress: r.stream.source_address,
       srcCountry: r.stream.source_country,
-      destinationPort: parseInt(r.stream.destination_port, 10),
+      dstPort: parseInt(r.stream.destination_port, 10),
     };
   });
 
@@ -33,8 +33,8 @@ const getFilterLogs = async (
       start: input.start,
       end: input.end,
     },
-    blockedRecords,
-    totalBlocked: rawData.data.result.length,
+    records,
+    total: rawData.data.result.length,
   };
 
   return result;
