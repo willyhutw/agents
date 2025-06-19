@@ -1,5 +1,6 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
+import { BaseMessage, SystemMessage } from "@langchain/core/messages";
 import dotenv from "dotenv";
 
 import { FirewallTool } from "./tools/firewall.js";
@@ -14,12 +15,17 @@ const llm = new ChatOpenAI({
   temperature: 0.1,
 });
 
-const systemMessage = `You are a firewall log analysis expert. Your role is to assist users in querying blocked records. Make sure to use the available tools to gather all necessary data before responding to any questions.`;
+const modifyMessages = (messages: BaseMessage[]) => {
+  return [
+    new SystemMessage("You are a firewall log analysis expert. Your role is to assist users in querying blocked records. Make sure to use the available tools to gather all necessary data before responding to any questions."),
+    ...messages,
+  ];
+};
 
 const reactAgent = createReactAgent({
   llm,
   tools,
-  messageModifier: systemMessage,
+  messageModifier: modifyMessages,
 });
 
 // first query
