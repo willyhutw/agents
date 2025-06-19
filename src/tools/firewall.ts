@@ -1,4 +1,4 @@
-import { DynamicStructuredTool } from "langchain/tools";
+import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 
 import * as T from "./types.js";
@@ -49,23 +49,21 @@ const argsSchema = z.object({
   end: z.string().describe("End time in ISO format"),
 });
 
-export const FirewallTool = new DynamicStructuredTool({
-  name: "firewall_logs",
-  description: "Return the firewall blocked logs in a specific time range.",
-  schema: argsSchema,
-  func: async ({ start, end, limit }) => {
+export const FirewallTool = tool(
+  async (args: z.infer<typeof argsSchema>) => {
     console.log(
-      `=== Fetching firewall logs from ${start} to ${end} with limit ${limit}`,
+      `=== Fetching firewall logs from ${args.start} to ${args.end} ===`,
     );
     try {
-      const result = await getFilterLogs({
-        start,
-        end,
-        limit,
-      });
+      const result = await getFilterLogs(args);
       return JSON.stringify(result);
     } catch (error) {
       return `Error fetching logs: ${error}`;
     }
   },
-});
+  {
+    name: "firewall_logs",
+    description: "Return the firewall blocked logs in a specific time range.",
+    schema: argsSchema,
+  },
+);
