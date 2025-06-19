@@ -16,7 +16,7 @@ const getFilterLogs = async (
   const end = new Date(input.end).getTime() / 1000;
 
   const resp = await fetch(
-    `${lokiApiUrl}/query_range?query=${encodeURIComponent('{log_type="filterlog", real_interface="pppoe0", action="block"}')}&start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}&limit=${encodeURIComponent(input.limit || 10000)}`,
+    `${lokiApiUrl}/query_range?query=${encodeURIComponent('{log_type="filterlog", real_interface="pppoe0", action="block"}')}&start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}&limit=${encodeURIComponent(input.limit || 5000)}`,
   );
 
   const rawData: T.lokiQueryOut = await resp.json();
