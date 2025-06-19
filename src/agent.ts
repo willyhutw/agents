@@ -12,8 +12,8 @@ const tools = [FirewallTool];
 
 const llm = new ChatOpenAI({
   openAIApiKey: process.env.OPENAI_API_KEY!,
-  model: "gpt-4.1-nano-2025-04-14",
-  temperature: 0.1,
+  model: "gpt-4o-mini-2024-07-18",
+  temperature: 0,
 });
 
 const prompt = ChatPromptTemplate.fromMessages([
@@ -42,7 +42,7 @@ Please summarize the firewall block logs from the past 15 minutes.
 Report your findings in markdown format, including both tables and a written description.
 Show the top 10 source IP addresses and their countries, sorted by count.
 Also, display the top 5 destination ports (below 1024), sorted by count.
-You may only call the tool once, so ensure you gather all necessary data in a single request.`;
+You only allow call the tool once, so ensure you gather all necessary data in a single request.`;
 console.log(`${query}\n`);
 
 const result = await agentExecutor.invoke({ input: query });
