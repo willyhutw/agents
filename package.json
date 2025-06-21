@@ -14,8 +14,10 @@
     "@langchain/core": "^0.3.59",
     "@langchain/langgraph": "^0.3.4",
     "@langchain/openai": "^0.5.13",
+    "@modelcontextprotocol/sdk": "^1.13.0",
     "dotenv": "^16.5.0",
-    "zod": "^3.25.67"
+    "zod": "^3.25.67",
+    "zod-to-json-schema": "^3.24.5"
   },
   "devDependencies": {
     "typescript": "^5.8.3"
